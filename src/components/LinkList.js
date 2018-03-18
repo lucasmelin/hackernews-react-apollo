@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Link from "./Link";
+import { graphql } from "react-apollo";
+import gql from "graphql-tag";
 
 class LinkList extends Component {
   render() {
@@ -22,5 +24,19 @@ class LinkList extends Component {
     );
   }
 }
+// Store te query
+const FEED_QUERY = gql`
+  query FeedQuery {
+    feed {
+      links {
+        id
+        createdAt
+        url
+        description
+      }
+    }
+  }
+`;
 
-export default LinkList;
+// Injected prop will be feedQuery instead of data
+export default graphql(FEED_QUERY, { name: "feedQuery" })(LinkList);
