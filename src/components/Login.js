@@ -41,7 +41,7 @@ class Login extends Component {
           </div>
           <div
             className="pointer button"
-            onClick={() => this.setState({ lopgin: !this.state.login })}
+            onClick={() => this.setState({ login: !this.state.login })}
           >
             {this.state.login
               ? "need to create an account?"
@@ -51,14 +51,13 @@ class Login extends Component {
       </div>
     );
   }
+
+  _confirm = async () => {
+    // to be implemented
+  };
+
+  _saveUserData = token => {
+    localStorage.setItem(AUTH_TOKEN, token);
+  };
 }
-
-_confirm = async () => {
-  // to be implemented
-};
-
-_saveUserData = token => {
-  localStorage.setItem(AUTH_TOKEN, token);
-};
-
 export default Login;
