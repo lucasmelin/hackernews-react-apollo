@@ -42,6 +42,8 @@ class CreateLink extends Component {
         url
       }
     });
+    // Redirect after the mutation is performed
+    this.props.history.push("/");
   };
 }
 
