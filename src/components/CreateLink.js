@@ -17,7 +17,14 @@ class CreateLink extends Component {
             value={this.state.description}
             onChange={e => this.setState({ description: e.target.value })}
             type="text"
-            placeholder="The URL for the Link"
+            placeholder="A description for the Link"
+          />
+          <input
+            className="mb2"
+            value={this.state.url}
+            onChange={e => this.setState({ url: e.target.value })}
+            type="text"
+            placeholder="The URL for the link"
           />
         </div>
         <button onClick={() => this._createLink()}>Submit</button>
@@ -25,8 +32,16 @@ class CreateLink extends Component {
     );
   }
 
+  // Call the function Apollo injects into CreateLink
+  // and pass the variables that represent user input
   _createLink = async () => {
-    // To be implemented
+    const { description, url } = this.state;
+    await this.props.postMutation({
+      variables: {
+        description,
+        url
+      }
+    });
   };
 }
 
@@ -41,5 +56,5 @@ const POST_MUTATION = gql`
   }
 `;
 
-// ombine te component with the mutation
+// combine the component with the mutation
 export default graphql(POST_MUTATION, { name: "postMutation" })(CreateLink);

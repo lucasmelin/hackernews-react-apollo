@@ -11,7 +11,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 // Create the link to connect the ApolloCLient to the GraphQL API
 // running on port 4000
-const httpLink = new HttpLink([(uri: "http://localhost:4000")]);
+const httpLink = new HttpLink({ uri: "http://localhost:4000" });
 
 // INstantiate the ApolloClient
 const client = new ApolloClient({
