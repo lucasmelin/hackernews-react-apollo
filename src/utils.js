@@ -8,7 +8,7 @@ function timeDifference(current, previous) {
   const elapsed = current - previous;
 
   // Less than 20 seconds ago
-  if (elapsed < millisecondsPerMinute / 3) {
+  if (elapsed < milliSecondsPerMinute / 3) {
     return "just now";
   }
 
