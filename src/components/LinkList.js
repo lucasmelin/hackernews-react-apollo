@@ -5,19 +5,20 @@ import gql from "graphql-tag";
 
 class LinkList extends Component {
   render() {
-    // Simple mock data for now
-    const linksToRender = [
-      {
-        id: "1",
-        description: "Prisma turns your database into a GraphQL API 😎 😎",
-        url: "https://www.prismagraphql.com"
-      },
-      {
-        id: "2",
-        description: "The best GraphQL client",
-        url: "https://www.apollographql.com/docs/react/"
-      }
-    ];
+    // Loading is true if the request is ongoing and no response
+    // has been received
+    if (this.props.feedQuery && this.props.feedQuery.loading) {
+      return <div>Loading...</div>;
+    }
+    // If the request failed, the error prop contains info
+    // about what exactly went wrong
+    if (this.props.feedQuery && this.props.feedQuery.error) {
+      return <div>Error</div>;
+    }
+
+    // Feed is the actual data received, which contains
+    // a links property with all the Link elements
+    const linksToRender = this.props.feedQuery.feed.links;
 
     return (
       <div>{linksToRender.map(link => <Link key={link.id} link={link} />)}</div>
