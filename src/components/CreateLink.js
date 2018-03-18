@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import gql from "graphql-tag";
+import { FEED_QUERY } from "./LinkList";
 
 class CreateLink extends Component {
   state = {
@@ -40,6 +41,17 @@ class CreateLink extends Component {
       variables: {
         description,
         url
+      },
+      update: (store, { data: { post } }) => {
+        // Read the current state of the results
+        const data = store.readQuery({ query: FEED_QUERY });
+        // Insert the new link at index 0
+        data.feed.links.splice(0, 0, post);
+        // Write the results back to store
+        store.writeQuery({
+          query: FEED_QUERY,
+          data
+        });
       }
     });
     // Redirect after the mutation is performed

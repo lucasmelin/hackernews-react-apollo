@@ -23,14 +23,29 @@ class LinkList extends Component {
     return (
       <div>
         {linksToRender.map((link, index) => (
-          <Link key={link.id} index={index} link={link} />
+          <Link
+            key={link.id}
+            updateStoreAfterVote={this._updateCacheAfterVote}
+            index={index}
+            link={link}
+          />
         ))}
       </div>
     );
   }
+
+  _updateCacheAfterVote = (store, createVote, linkId) => {
+    // Read the current state
+    const data = store.readQuery({ query: FEED_QUERY });
+    // Retrieve the voted-for link and change the votes
+    const votedLink = data.feed.links.find(link => link.id === linkId);
+    votedLink.votes = createVote.link.votes;
+    // Write the modified data back to the store
+    store.writeQuery({ query: FEED_QUERY, data });
+  };
 }
-// Store te query
-const FEED_QUERY = gql`
+// Store the query
+export const FEED_QUERY = gql`
   query FeedQuery {
     feed {
       links {
